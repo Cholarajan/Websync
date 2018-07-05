@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'Websync_Example' do
+  pod 'Websync', :path => '../'
+
+  target 'Websync_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
