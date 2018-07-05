@@ -1,0 +1,6 @@
+framework module Websync {
+  umbrella header "Websync-umbrella.h"
+
+  export *
+  module * { export * }
+}

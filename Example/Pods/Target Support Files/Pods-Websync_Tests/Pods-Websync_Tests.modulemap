@@ -1,0 +1,6 @@
+framework module Pods_Websync_Tests {
+  umbrella header "Pods-Websync_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
