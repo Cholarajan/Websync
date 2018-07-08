@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Websync
 
 struct pLogin: Codable {
     var userName: String
@@ -27,7 +28,9 @@ class ViewController: UIViewController {
         // Encode
         let user = pLogin(userName: "raj@xyz.com", password: "raj123456")
         
-        CRRest().post(postBody: user, methodName: "users", expected: rLogin.self) { response, error in
+        
+        
+        Websync().post(postBody: user, methodName: "users", expected: rLogin.self) { response, error in
             
             if response != nil {
                 

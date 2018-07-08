@@ -1,11 +1,11 @@
 //
-//  CRRest.swift
+//  Websync.swift
 //
 //  Created by Chola on 07/11/14.
 //  Copyright (c) 2018 Chola. All rights reserved.
 //
 
-typealias CompletionBlock = (Codable?, NSError?) -> ()
+public typealias CompletionBlock = (Codable?, NSError?) -> ()
 
 var websynch_baseUrl = ""
 
@@ -13,7 +13,7 @@ let nTimeout = 60.0
 
 import UIKit
 
-class Websync: NSObject {
+public class Websync: NSObject {
     
     var completionBlock : CompletionBlock!
     

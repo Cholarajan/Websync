@@ -1,9 +1,9 @@
 {
   "name": "Websync",
   "version": "0.1.0",
-  "summary": "A short description of Websync.",
+  "summary": "A simple web service handler.",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/cholaitnj@gmail.com/Websync",
+  "homepage": "https://github.com/Cholarajan/Websync",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,11 +12,12 @@
     "cholaitnj@gmail.com": "cholaitnj@gmail.com"
   },
   "source": {
-    "git": "https://github.com/cholaitnj@gmail.com/Websync.git",
+    "git": "https://github.com/Cholarajan/Websync.git",
     "tag": "0.1.0"
   },
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "Websync/Classes/**/*"
+  "source_files": "Classes/*.{swift}",
+  "frameworks": "UIKit"
 }
