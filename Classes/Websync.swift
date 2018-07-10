@@ -7,15 +7,19 @@
 
 public typealias CompletionBlock = (Codable?, NSError?) -> ()
 
-var websynch_baseUrl = ""
-
 let nTimeout = 60.0
 
 import UIKit
 
 public class Websync: NSObject {
     
+    open static var websynch_baseUrl: String = ""
+    
     var completionBlock : CompletionBlock!
+    
+    var methodname : String!
+    
+    var isCache : Bool!
     
     
     public func post<T : Encodable, R : Codable>(postBody: T, methodName: String, expected: R.Type, header: Dictionary<String, String>? = nil,  cache: Bool? = false, completionHandler: @escaping CompletionBlock) {
@@ -23,6 +27,8 @@ public class Websync: NSObject {
         let jsonData = try! JSONEncoder().encode(postBody)
             
         completionBlock = completionHandler
+        methodname = methodName
+        isCache = cache
         
         sync_session(jsonData: jsonData, methodName: methodName, expected: expected, method: "POST", header: header)
             
@@ -34,6 +40,8 @@ public class Websync: NSObject {
         let jsonData = try! JSONEncoder().encode(postBody)
         
         completionBlock = completionHandler
+        methodname = methodName
+        isCache = cache
         
         sync_session(jsonData: jsonData, methodName: methodName, expected: expected, method: "PUT", header: header)
         
@@ -43,6 +51,8 @@ public class Websync: NSObject {
     public func get<R : Codable>(methodName: String, expected: R.Type, header: Dictionary<String, String>? = nil,  cache: Bool? = false, completionHandler: @escaping CompletionBlock) {
         
         completionBlock = completionHandler
+        methodname = methodName
+        isCache = cache
         
         sync_session(jsonData: (nil as Data?)!, methodName: methodName, expected: expected, method: "GET", header: header)
         
@@ -51,7 +61,7 @@ public class Websync: NSObject {
     
 
     private func request_param(jsonData: Data, methodName: String, method: String, header: Dictionary<String, String>? = nil) -> URLRequest {
-        var request = URLRequest(url: URL(string: "\(websynch_baseUrl)\(methodName)")!)
+        var request = URLRequest(url: URL(string: "\(Websync.websynch_baseUrl)\(methodName)")!)
         request.httpMethod = method
         
         if method != "GET" {
@@ -64,7 +74,7 @@ public class Websync: NSObject {
             request.addValue($0.key, forHTTPHeaderField: $0.value)
         }
         
-        print("\(websynch_baseUrl)\(methodName)")
+        print("\(Websync.websynch_baseUrl)\(methodName)")
         
         return request
     }
@@ -81,11 +91,33 @@ public class Websync: NSObject {
                 if data != nil {
                     
                     let userResponse = try! JSONDecoder().decode(expected, from: data!)
+                    
+                    if self.isCache {
+                        CRCache().write(data: data!, forKey: self.methodname)
+                    }
+                    
                     self.completionBlock(userResponse, nil)
                     
                     
                 } else {
-                    self.completionBlock(nil, error as NSError?)
+                    
+                    if self.isCache {
+                        
+                        let cached = CRCache().read(forKey: self.methodname)
+                        
+                        if (cached != nil) {
+                            let userResponse = try! JSONDecoder().decode(expected, from: cached!)
+                            self.completionBlock(userResponse, error as NSError?)
+                            
+                        } else {
+                            self.completionBlock(nil, error as NSError?)
+                            
+                        }
+                    } else {
+                        self.completionBlock(nil, error as NSError?)
+                        
+                    }
+                    
                 }
                 
             }

@@ -14,7 +14,7 @@ extension Dictionary {
     }
 }
 
-class CRCache {
+public class CRCache {
     
     static let defaultCachePeriodInSec: TimeInterval = 60 * 60 * 24 * 2 // 2 days
     
@@ -27,7 +27,7 @@ class CRCache {
     /// Life time of disk cache, in second.
     open var cachePeriodInSecond = CRCache.defaultCachePeriodInSec
     
-    /// Size is allocated for disk cache, in byte. 0 mean no limit.
+    /// In byte. 0 mean no limit.
     open var maxCacheSize: UInt = 0
     
     init() {

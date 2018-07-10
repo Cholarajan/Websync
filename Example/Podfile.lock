@@ -1,5 +1,5 @@
 PODS:
-  - Websync (0.1.0)
+  - Websync (0.1.3)
 
 DEPENDENCIES:
   - Websync (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  Websync: 1d0b16cdbe6d90ab184a0cba26491d116aa8dba6
+  Websync: d5d78508c32b9cd1744c896327aa772fadff2d7b
 
 PODFILE CHECKSUM: d431e7e8c3234deb013b8a869520db49d2e2dad3
 

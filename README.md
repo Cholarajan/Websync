@@ -20,9 +20,78 @@ it, simply add the following line to your Podfile:
 pod 'Websync'
 ```
 
+How to use
+----------
+
+**STEP 1**:
+
+Your API Url
+```swift
+Websync.websynch_baseUrl = "https://tyre-buzzar-dev.webappstesting.com/api/"
+```
+
+Create structure for post data
+```swift
+struct pLogin: Codable {
+var userName: String
+var password: String
+}
+```
+
+Create structure for response data
+```swift
+struct rLogin: Codable {
+var success: Bool
+var access_token: String
+}
+```
+
+**STEP 2**:
+
+Excecute simple API call
+```swift
+import Websync
+
+let user = pLogin(userName: "raj@xyz.com", password: "raj123456")
+
+Websync().post(postBody: user, methodName: "users", expected: rLogin.self) { response, error in
+
+if response != nil {
+
+let userResponse = response as! rLogin
+print(userResponse.success)
+
+} else {
+
+// Error message here..
+
+}
+
+}
+```
+
+Excecute API call with cache and header
+```swift
+Websync().post(postBody: user, methodName: "users", expected: rLogin.self, header: ["auth":"12121"], cache: true) { response, error in
+
+if response != nil {
+
+let userResponse = response as! rLogin
+print(userResponse.success)
+
+} else {
+
+// Error message here..
+
+}
+
+}
+```
+
+
 ## Author
 
-cholaitnj@gmail.com, cholaitnj@gmail.com
+chola, cholaitnj@gmail.com
 
 ## License
 
