@@ -27,7 +27,7 @@ How to use
 
 Your API Url
 ```swift
-Websync.websynch_baseUrl = "https://tyre-buzzar-dev.webappstesting.com/api/"
+Websync.websynch_baseUrl = "https://your_api_url/"
 ```
 
 Create structure for post data
